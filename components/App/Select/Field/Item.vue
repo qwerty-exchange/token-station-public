@@ -1,0 +1,32 @@
+<script lang="ts" setup>
+const props = defineProps({
+  modelValue: {
+    type: String,
+    default: ''
+  },
+
+  value: {
+    type: String,
+    required: true
+  }
+})
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', state: string): void
+}>()
+
+const isActive = computed(() => props.modelValue === props.value)
+
+function handleClick() {
+  emit('update:modelValue', props.value)
+}
+</script>
+
+<template>
+  <div
+    class="p-2 hover:bg-gray-200 rounded text-black text-sm cursor-pointer group"
+    @click="handleClick"
+  >
+    <slot :active="isActive" />
+  </div>
+</template>
